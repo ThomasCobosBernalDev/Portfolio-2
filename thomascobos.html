@@ -1,0 +1,1135 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#1E1B17" />
+  <title>Thomas Cobos Bernal · Web Developer</title>
+  <meta name="description" content="Web Developer, Field Technician, and Marine Veteran based in Houston, TX. Building websites for businesses that want to be taken seriously." />
+  <meta property="og:title" content="Thomas Cobos Bernal · Web Developer" />
+  <meta property="og:description" content="Web Developer, Field Technician, and Marine Veteran based in Houston, TX." />
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    /* === DARK THEME (default) === */
+    :root {
+      --bg: #1E1B17;
+      --surface: #282420;
+      --surface-light: #322D26;
+      --border: #3A3530;
+      --border-bright: #54493E;
+      --text: #EDE5D2;
+      --text-dim: #9C9182;
+      --text-faint: #6B6357;
+      --accent: #E8843B;
+      --cream: #F0E9D9;
+      --shadow: rgba(0, 0, 0, 0.5);
+      --shadow-strong: rgba(0, 0, 0, 0.6);
+      --nav-bg: rgba(30, 27, 23, 0.92);
+      --orb-1: rgba(232, 132, 59, 0.18);
+      --orb-2: rgba(232, 132, 59, 0.14);
+      --metallic-gradient: linear-gradient(180deg, #F0E9D9 0%, #C8BFA8 40%, #8A7F6C 70%, #E5DBC2 100%);
+      --font-display: 'Cormorant Garamond', serif;
+      --font-body: 'Inter', system-ui, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    /* === LIGHT THEME === */
+    [data-theme="light"] {
+      --bg: #F0E9D9;
+      --surface: #FAF5E8;
+      --surface-light: #FFFFFF;
+      --border: #D8CFB8;
+      --border-bright: #B5A78A;
+      --text: #2A2520;
+      --text-dim: #6B6357;
+      --text-faint: #9C9182;
+      --accent: #C46A24;
+      --cream: #1E1B17;
+      --shadow: rgba(60, 50, 35, 0.12);
+      --shadow-strong: rgba(60, 50, 35, 0.2);
+      --nav-bg: rgba(240, 233, 217, 0.92);
+      --orb-1: rgba(196, 106, 36, 0.18);
+      --orb-2: rgba(196, 106, 36, 0.14);
+      --metallic-gradient: linear-gradient(180deg, #6B4E2E 0%, #3D2A18 40%, #1E1B17 70%, #8A6840 100%);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+      line-height: 1.5;
+      transition: background-color 0.5s ease, color 0.5s ease;
+    }
+    ::selection { background: var(--accent); color: var(--bg); }
+    a { color: inherit; text-decoration: none; }
+    ul { list-style: none; }
+    img { max-width: 100%; display: block; }
+    button { background: none; border: none; cursor: pointer; font-family: inherit; color: inherit; }
+
+    /* Orbs */
+    .orbs {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(60px);
+      transition: background 0.5s ease;
+    }
+    .orb-1 {
+      top: 12%;
+      left: 8%;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, var(--orb-1) 0%, transparent 70%);
+    }
+    .orb-2 {
+      bottom: 15%;
+      right: 8%;
+      width: 450px;
+      height: 450px;
+      background: radial-gradient(circle, var(--orb-2) 0%, transparent 70%);
+      filter: blur(70px);
+    }
+
+    .main { position: relative; z-index: 2; }
+
+    /* Metallic */
+    @keyframes shimmer {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+    .metallic {
+      background: var(--metallic-gradient);
+      background-size: 200% 200%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: shimmer 10s ease-in-out infinite;
+    }
+
+    /* Nav */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 50;
+      transition: all 0.4s ease;
+      background-color: transparent;
+      border-bottom: 1px solid transparent;
+    }
+    .nav.scrolled {
+      background-color: var(--nav-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 16px 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+    .nav-brand {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      transition: color 0.3s ease;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    .nav-brand:hover { color: var(--accent); }
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      flex-wrap: wrap;
+    }
+    .nav-link {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      transition: color 0.3s ease;
+      cursor: pointer;
+    }
+    .nav-link:hover { color: var(--accent); }
+
+    /* Theme toggle */
+    .theme-toggle {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-dim);
+      transition: color 0.3s ease, border-color 0.3s ease, transform 0.4s ease, background-color 0.3s ease;
+      flex-shrink: 0;
+    }
+    .theme-toggle:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+      transform: rotate(45deg);
+    }
+    .theme-toggle svg {
+      width: 16px;
+      height: 16px;
+      transition: opacity 0.3s ease;
+    }
+    .theme-toggle .icon-sun { display: block; }
+    .theme-toggle .icon-moon { display: none; }
+    [data-theme="light"] .theme-toggle .icon-sun { display: none; }
+    [data-theme="light"] .theme-toggle .icon-moon { display: block; }
+
+    /* Hamburger (mobile only) */
+    .hamburger {
+      width: 36px;
+      height: 36px;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      color: var(--text-dim);
+      transition: color 0.3s ease, border-color 0.3s ease;
+    }
+    .hamburger:hover { color: var(--accent); border-color: var(--accent); }
+    .hamburger span {
+      width: 14px;
+      height: 1px;
+      background-color: currentColor;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+    .mobile-menu {
+      position: fixed;
+      inset: 0;
+      background-color: var(--bg);
+      z-index: 100;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 32px;
+      transform: translateY(-100%);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .mobile-menu.open {
+      display: flex;
+      transform: translateY(0);
+    }
+    .mobile-menu-close {
+      position: absolute;
+      top: 16px;
+      right: 24px;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-dim);
+      font-size: 20px;
+      line-height: 1;
+    }
+    .mobile-menu-close:hover { color: var(--accent); border-color: var(--accent); }
+    .mobile-menu-link {
+      font-family: var(--font-display);
+      font-size: 32px;
+      color: var(--text);
+      letter-spacing: 0.02em;
+      transition: color 0.3s ease, letter-spacing 0.4s ease;
+    }
+    .mobile-menu-link:hover {
+      color: var(--accent);
+      letter-spacing: 0.06em;
+    }
+
+    /* Hero */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 140px 32px 80px;
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+    .hero-label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.35em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 40px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .hero-label .line { width: 40px; height: 1px; background-color: var(--accent); }
+    .hero-name {
+      font-family: var(--font-display);
+      font-weight: 500;
+      font-size: clamp(48px, 11vw, 168px);
+      line-height: 0.95;
+      letter-spacing: -0.02em;
+    }
+    .hero-roles {
+      margin-top: 48px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 16px;
+    }
+    .hero-role {
+      font-family: var(--font-display);
+      font-size: clamp(18px, 2.2vw, 24px);
+      font-style: italic;
+      font-weight: 500;
+      color: var(--text);
+    }
+    .hero-diamond { color: var(--accent); font-size: 12px; }
+    .hero-statement { margin-top: 80px; max-width: 780px; }
+    .hero-statement-main {
+      font-family: var(--font-display);
+      font-size: clamp(22px, 3vw, 32px);
+      line-height: 1.35;
+      font-weight: 400;
+      color: var(--cream);
+      font-style: italic;
+    }
+    .hero-statement-sub {
+      font-family: var(--font-body);
+      font-size: 15px;
+      font-weight: 500;
+      line-height: 1.7;
+      color: var(--text-dim);
+      margin-top: 24px;
+      letter-spacing: 0.02em;
+    }
+    .hero-ctas {
+      margin-top: 48px;
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    /* CTA */
+    .cta-btn {
+      padding: 16px 32px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-weight: 500;
+      cursor: pointer;
+      display: inline-block;
+      transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .cta-primary {
+      background-color: var(--accent);
+      color: #FFFFFF;
+      border: 1px solid var(--accent);
+    }
+    .cta-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 24px -6px var(--accent);
+      filter: brightness(1.1);
+    }
+    .cta-secondary {
+      background-color: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .cta-secondary:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: translateY(-2px);
+    }
+    .cta-big { padding: 18px 40px; letter-spacing: 0.25em; }
+
+    /* Sections */
+    .section {
+      padding: 140px 32px;
+      max-width: 1280px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .section-bordered { border-top: 1px solid var(--border); }
+    .section-label {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.35em;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      flex-wrap: wrap;
+    }
+    .section-label .line { width: 40px; height: 1px; background-color: var(--border); }
+    .section-label .num { color: var(--accent); }
+    .section-heading {
+      font-family: var(--font-display);
+      font-weight: 500;
+      font-size: clamp(36px, 6vw, 80px);
+      line-height: 1.05;
+      letter-spacing: -0.015em;
+      margin: 32px 0 64px;
+      color: var(--cream);
+    }
+    .accent-word { font-style: italic; color: var(--accent); }
+    .italic-word { font-style: italic; }
+
+    /* About */
+    .about-paragraphs {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 32px;
+      max-width: 1000px;
+      margin: 0 auto;
+      text-align: left;
+    }
+    .about-paragraphs p {
+      font-family: var(--font-body);
+      font-size: 15px;
+      line-height: 1.8;
+      color: var(--text-dim);
+    }
+    .about-quote { margin: 64px auto 0; max-width: 640px; }
+    .about-quote-line {
+      width: 60px;
+      height: 1px;
+      background-color: var(--accent);
+      margin: 0 auto 32px;
+    }
+    .about-quote-text {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: clamp(20px, 3vw, 30px);
+      line-height: 1.4;
+      color: var(--cream);
+    }
+
+    /* Services */
+    .services-sub {
+      font-family: var(--font-body);
+      font-size: 16px;
+      color: var(--text-dim);
+      max-width: 640px;
+      margin: 0 auto 64px;
+      line-height: 1.7;
+    }
+    .services-heading { margin-bottom: 16px; }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      text-align: left;
+    }
+    .service-card {
+      border: 1px solid var(--border);
+      background-color: var(--surface);
+      padding: 40px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.4s ease, background-color 0.4s ease, transform 0.4s ease, box-shadow 0.4s ease;
+    }
+    .service-card:hover {
+      border-color: var(--accent);
+      background-color: var(--surface-light);
+      transform: translateY(-6px);
+      box-shadow: 0 24px 48px -12px var(--shadow-strong), 0 0 0 1px var(--accent), 0 0 60px -20px rgba(232,132,59,0.3);
+    }
+    .service-num {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+    .service-title {
+      font-family: var(--font-display);
+      font-weight: 500;
+      font-size: 28px;
+      line-height: 1.15;
+      margin-bottom: 16px;
+      color: var(--cream);
+    }
+    .service-body {
+      font-family: var(--font-body);
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--text-dim);
+      margin-bottom: 24px;
+    }
+    .service-features li {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      color: var(--text);
+      text-transform: uppercase;
+      padding-left: 20px;
+      position: relative;
+      margin-bottom: 8px;
+    }
+    .service-features li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 9px;
+      width: 8px;
+      height: 1px;
+      background-color: var(--accent);
+    }
+    .services-cta { margin-top: 64px; }
+
+    /* Experience */
+    .experience-list {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      text-align: left;
+    }
+    .exp-card {
+      border: 1px solid var(--border);
+      padding: 40px;
+      background-color: var(--surface);
+      transition: border-color 0.4s ease, background-color 0.4s ease, transform 0.4s ease, box-shadow 0.4s ease;
+    }
+    .exp-card:hover {
+      border-color: var(--accent);
+      background-color: var(--surface-light);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px -10px var(--shadow), 0 0 0 1px var(--accent);
+    }
+    .exp-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 24px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+    }
+    .exp-title {
+      font-family: var(--font-display);
+      font-weight: 500;
+      font-size: clamp(22px, 3vw, 34px);
+      line-height: 1.15;
+      color: var(--cream);
+    }
+    .exp-org {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 20px;
+      color: var(--accent);
+      margin-top: 4px;
+    }
+    .exp-meta { text-align: right; }
+    .exp-year {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.25em;
+      color: var(--text);
+      text-transform: uppercase;
+    }
+    .exp-location {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      color: var(--text-faint);
+      text-transform: uppercase;
+      margin-top: 6px;
+    }
+    .exp-bullets li {
+      font-family: var(--font-body);
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--text-dim);
+      padding-left: 22px;
+      position: relative;
+      margin-bottom: 12px;
+    }
+    .exp-bullets li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 11px;
+      width: 10px;
+      height: 1px;
+      background-color: var(--accent);
+    }
+
+    /* Credentials */
+    .creds-list {
+      border-top: 1px solid var(--border);
+      text-align: left;
+      background-color: var(--surface);
+    }
+    .cred-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 28px 24px;
+      border-bottom: 1px solid var(--border);
+      gap: 24px;
+      flex-wrap: wrap;
+      transition: border-color 0.4s ease, background-color 0.4s ease, transform 0.4s ease, box-shadow 0.4s ease;
+    }
+    .cred-row.linked { cursor: pointer; }
+    .cred-row.linked:hover {
+      border-color: var(--accent);
+      background-color: var(--surface-light);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px -10px var(--shadow);
+    }
+    .cred-info {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .cred-category {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      color: var(--accent);
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border: 1px solid var(--accent);
+    }
+    .cred-title {
+      font-family: var(--font-display);
+      font-weight: 500;
+      font-size: 22px;
+      color: var(--cream);
+    }
+    .cred-issuer {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 15px;
+      color: var(--text-dim);
+      margin-top: 4px;
+    }
+    .cred-meta {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: 0.2em;
+      color: var(--text);
+      text-transform: uppercase;
+      text-align: right;
+    }
+    .cred-view {
+      margin-top: 4px;
+      color: var(--accent);
+      font-size: 10px;
+    }
+
+    /* Contact */
+    .contact-section { padding: 160px 32px; }
+    .contact-heading {
+      font-family: var(--font-display);
+      font-weight: 500;
+      font-size: clamp(40px, 7vw, 100px);
+      line-height: 1.0;
+      letter-spacing: -0.015em;
+      margin: 32px 0 24px;
+    }
+    .contact-sub {
+      font-family: var(--font-body);
+      font-size: 16px;
+      color: var(--text-dim);
+      max-width: 560px;
+      margin: 0 auto 64px;
+      line-height: 1.7;
+    }
+    .contact-list { max-width: 780px; margin: 0 auto; }
+    .contact-link {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 32px 0;
+      border-bottom: 1px solid var(--border);
+      color: var(--text);
+      flex-wrap: wrap;
+      gap: 16px;
+      text-align: left;
+      transition: color 0.3s ease, letter-spacing 0.4s ease, padding-left 0.3s ease;
+    }
+    .contact-link:hover {
+      color: var(--accent);
+      letter-spacing: 0.04em;
+      padding-left: 16px;
+    }
+    .contact-label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.3em;
+      color: var(--text-dim);
+      text-transform: uppercase;
+    }
+    .contact-value {
+      font-family: var(--font-display);
+      font-size: clamp(18px, 3vw, 32px);
+      font-weight: 500;
+      word-break: break-word;
+    }
+
+    /* Footer */
+    .footer {
+      border-top: 1px solid var(--border);
+      padding: 32px;
+      max-width: 1280px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      text-align: center;
+    }
+    .footer-text {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.25em;
+      color: var(--text-faint);
+      text-transform: uppercase;
+    }
+
+    /* === RESPONSIVE === */
+    @media (max-width: 900px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .nav-inner { padding: 14px 20px; }
+    }
+    @media (max-width: 768px) {
+      .hero { padding: 120px 20px 60px; }
+      .section { padding: 100px 20px; }
+      .contact-section { padding: 120px 20px; }
+      .service-card, .exp-card { padding: 28px; }
+      .cred-row { padding: 24px 20px; }
+      .hero-statement { margin-top: 64px; }
+      .hero-ctas { margin-top: 40px; }
+      .section-heading { margin: 28px 0 48px; }
+      .orb-1 { width: 350px; height: 350px; }
+      .orb-2 { width: 320px; height: 320px; }
+    }
+    @media (max-width: 480px) {
+      .nav-inner { padding: 12px 16px; }
+      .nav-right { gap: 12px; }
+      .hero { padding: 100px 16px 50px; }
+      .hero-label { font-size: 10px; letter-spacing: 0.25em; }
+      .hero-label .line { width: 24px; }
+      .section { padding: 80px 16px; }
+      .contact-section { padding: 100px 16px; }
+      .service-card, .exp-card { padding: 24px; }
+      .cred-row { padding: 20px 16px; gap: 16px; }
+      .exp-header { flex-direction: column; }
+      .exp-meta { text-align: left; }
+      .contact-link { padding: 24px 0; }
+      .cta-btn { padding: 14px 24px; }
+      .mobile-menu-link { font-size: 28px; }
+      .section-label { font-size: 10px; letter-spacing: 0.25em; }
+      .section-label .line { width: 24px; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Orbs -->
+  <div class="orbs">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+  </div>
+
+  <div class="main">
+    <!-- Nav -->
+    <nav class="nav" id="nav">
+      <div class="nav-inner">
+        <a href="#top" class="nav-brand">T.C.B.</a>
+        <div class="nav-right">
+          <div class="nav-links">
+            <a href="#about" class="nav-link">About</a>
+            <a href="#services" class="nav-link">Services</a>
+            <a href="#experience" class="nav-link">Experience</a>
+            <a href="#credentials" class="nav-link">Credentials</a>
+            <a href="#contact" class="nav-link">Contact</a>
+          </div>
+          <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+            <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="5"/>
+              <line x1="12" y1="1" x2="12" y2="3"/>
+              <line x1="12" y1="21" x2="12" y2="23"/>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+              <line x1="1" y1="12" x2="3" y2="12"/>
+              <line x1="21" y1="12" x2="23" y2="12"/>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+            </svg>
+            <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+            </svg>
+          </button>
+          <button class="hamburger" id="hamburger" aria-label="Open menu">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Mobile menu -->
+    <div class="mobile-menu" id="mobileMenu">
+      <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close menu">×</button>
+      <a href="#about" class="mobile-menu-link mobile-nav-item">About</a>
+      <a href="#services" class="mobile-menu-link mobile-nav-item">Services</a>
+      <a href="#experience" class="mobile-menu-link mobile-nav-item">Experience</a>
+      <a href="#credentials" class="mobile-menu-link mobile-nav-item">Credentials</a>
+      <a href="#contact" class="mobile-menu-link mobile-nav-item">Contact</a>
+    </div>
+
+    <!-- Hero -->
+    <section class="hero" id="top">
+      <div class="hero-label">
+        <span class="line"></span>
+        <span>Web Developer · Houston, TX</span>
+        <span class="line"></span>
+      </div>
+      <h1 class="hero-name metallic">Thomas<br />Cobos Bernal</h1>
+      <div class="hero-roles">
+        <span class="hero-role">Web Developer</span>
+        <span class="hero-diamond">◆</span>
+        <span class="hero-role">Field Technician</span>
+        <span class="hero-diamond">◆</span>
+        <span class="hero-role">Marine Veteran</span>
+      </div>
+      <div class="hero-statement">
+        <p class="hero-statement-main">I build websites for businesses that want to be taken seriously.</p>
+        <p class="hero-statement-sub">Marine discipline. Engineer's mindset. Bilingual delivery. No templates.</p>
+      </div>
+      <div class="hero-ctas">
+        <a href="#services" class="cta-btn cta-primary">See What I Build</a>
+        <a href="#contact" class="cta-btn cta-secondary">Get in Touch</a>
+      </div>
+    </section>
+
+    <!-- About -->
+    <section class="section" id="about">
+      <div class="section-label">
+        <span class="line"></span>
+        <span class="num">I</span>
+        <span>About</span>
+        <span class="line"></span>
+      </div>
+      <h2 class="section-heading">
+        Born in <span class="italic-word">Ecuador</span>.<br />
+        Raised in <span class="italic-word">Houston</span>.<br />
+        Built in the <span class="accent-word">Corps</span>.
+      </h2>
+      <div class="about-paragraphs">
+        <p>Four years in the United States Marine Corps as an infantry squad leader and Combat Marksmanship Coach. Deployed internationally to Japan, working alongside the Japan Self-Defense Force on joint training. Deployed domestically to Los Angeles in a multi-agency environment with federal and state partners.</p>
+        <p>Honorably discharged. Now studying mechanical engineering at Houston Community College and working as a Field Technician at FourQuest Energy Services in Channelview. Bilingual in English and Spanish, used daily on the job.</p>
+      </div>
+      <div class="about-quote">
+        <div class="about-quote-line"></div>
+        <p class="about-quote-text">I lead by example, work hard, and don't make excuses.</p>
+      </div>
+    </section>
+
+    <!-- Services -->
+    <section class="section section-bordered" id="services">
+      <div class="section-label">
+        <span class="line"></span>
+        <span class="num">II</span>
+        <span>Services</span>
+        <span class="line"></span>
+      </div>
+      <h2 class="section-heading services-heading">What I <span class="accent-word">Build</span></h2>
+      <p class="services-sub">Hand-coded websites for businesses that want to stand out. No drag-and-drop builders. No templates pulled off a shelf. Built right, built fast, built to last.</p>
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-num">01 / Service</div>
+          <h3 class="service-title">Small Business Sites</h3>
+          <p class="service-body">Clean, fast websites for restaurants, contractors, retail shops, and service businesses. Built to actually convert visitors into customers.</p>
+          <ul class="service-features">
+            <li>Mobile responsive</li>
+            <li>Contact and hours</li>
+            <li>Photo galleries</li>
+            <li>Service info</li>
+          </ul>
+        </div>
+        <div class="service-card">
+          <div class="service-num">02 / Service</div>
+          <h3 class="service-title">Bilingual EN / ES</h3>
+          <p class="service-body">Sites that work in English and Spanish. Houston has a massive bilingual market, and most websites only serve half of it. I serve both.</p>
+          <ul class="service-features">
+            <li>Native translation</li>
+            <li>Language toggle</li>
+            <li>Culturally accurate copy</li>
+            <li>SEO in both</li>
+          </ul>
+        </div>
+        <div class="service-card">
+          <div class="service-num">03 / Service</div>
+          <h3 class="service-title">Portfolio & Personal</h3>
+          <p class="service-body">Custom portfolio sites for professionals, creatives, and anyone who needs a serious online presence. Like this one.</p>
+          <ul class="service-features">
+            <li>Custom design</li>
+            <li>Smooth animations</li>
+            <li>Fast load times</li>
+            <li>Clean code</li>
+          </ul>
+        </div>
+        <div class="service-card">
+          <div class="service-num">04 / Service</div>
+          <h3 class="service-title">Custom Builds</h3>
+          <p class="service-body">Something specific in mind? Bring me the idea and I'll build it. No templates, no cookie-cutter. Everything written by hand.</p>
+          <ul class="service-features">
+            <li>Full custom design</li>
+            <li>Hand-coded</li>
+            <li>Hosting setup</li>
+            <li>Ongoing support</li>
+          </ul>
+        </div>
+      </div>
+      <div class="services-cta">
+        <a href="#contact" class="cta-btn cta-primary cta-big">Start a Project</a>
+      </div>
+    </section>
+
+    <!-- Experience -->
+    <section class="section" id="experience">
+      <div class="section-label">
+        <span class="line"></span>
+        <span class="num">III</span>
+        <span>Experience</span>
+        <span class="line"></span>
+      </div>
+      <h2 class="section-heading">Where I've <span class="accent-word">Worked</span></h2>
+      <div class="experience-list">
+        <div class="exp-card">
+          <div class="exp-header">
+            <div>
+              <h3 class="exp-title">Field Technician, Intern</h3>
+              <div class="exp-org">FourQuest Energy Services</div>
+            </div>
+            <div class="exp-meta">
+              <div class="exp-year">2026 — Present</div>
+              <div class="exp-location">Channelview, Texas</div>
+            </div>
+          </div>
+          <ul class="exp-bullets">
+            <li>Hands-on field operations across chemical cleaning, nitrogen services, and pipeline commissioning projects.</li>
+            <li>Working alongside engineers on equipment operation, site execution, and client coordination.</li>
+            <li>Using bilingual ability daily with Spanish-speaking engineers and clients on active job sites.</li>
+          </ul>
+        </div>
+        <div class="exp-card">
+          <div class="exp-header">
+            <div>
+              <h3 class="exp-title">Infantryman, Squad Leader</h3>
+              <div class="exp-org">United States Marine Corps</div>
+            </div>
+            <div class="exp-meta">
+              <div class="exp-year">2022 — 2026</div>
+              <div class="exp-location">Honorable Discharge</div>
+            </div>
+          </div>
+          <ul class="exp-bullets">
+            <li>Led a 13-Marine infantry squad through training, deployment, and combat readiness operations.</li>
+            <li>Certified Combat Marksmanship Coach. Zero NJPs, zero legal issues throughout four years of service.</li>
+            <li>International deployment to Japan: joint training with JSDF, community engagement with civilian volunteers.</li>
+            <li>Domestic deployment to Los Angeles: multi-agency operations alongside federal and state partners.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Credentials -->
+    <section class="section section-bordered" id="credentials">
+      <div class="section-label">
+        <span class="line"></span>
+        <span class="num">IV</span>
+        <span>Credentials</span>
+        <span class="line"></span>
+      </div>
+      <h2 class="section-heading">Licensed & <span class="accent-word">Certified</span></h2>
+      <div class="creds-list">
+        <div class="cred-row">
+          <div class="cred-info">
+            <span class="cred-category">Security</span>
+            <div>
+              <h3 class="cred-title">Personal Protection Officer (PPO)</h3>
+              <div class="cred-issuer">Texas Department of Public Safety</div>
+            </div>
+          </div>
+          <div class="cred-meta">2026</div>
+        </div>
+        <div class="cred-row">
+          <div class="cred-info">
+            <span class="cred-category">Security</span>
+            <div>
+              <h3 class="cred-title">Commissioned Security Officer</h3>
+              <div class="cred-issuer">Texas Department of Public Safety</div>
+            </div>
+          </div>
+          <div class="cred-meta">2026</div>
+        </div>
+        <a href="https://certificates.cs50.io/9a89d73b-612f-4b9e-9b27-573771e60891.pdf?size=letter" target="_blank" rel="noopener noreferrer" class="cred-row linked">
+          <div class="cred-info">
+            <span class="cred-category">Technical</span>
+            <div>
+              <h3 class="cred-title">Introduction to Computer Science</h3>
+              <div class="cred-issuer">Harvard · CS50x</div>
+            </div>
+          </div>
+          <div class="cred-meta">
+            2025
+            <div class="cred-view">View →</div>
+          </div>
+        </a>
+        <a href="https://www.freecodecamp.org/certification/thomascobos/responsive-web-design" target="_blank" rel="noopener noreferrer" class="cred-row linked">
+          <div class="cred-info">
+            <span class="cred-category">Technical</span>
+            <div>
+              <h3 class="cred-title">Responsive Web Design</h3>
+              <div class="cred-issuer">freeCodeCamp</div>
+            </div>
+          </div>
+          <div class="cred-meta">
+            2025
+            <div class="cred-view">View →</div>
+          </div>
+        </a>
+        <div class="cred-row">
+          <div class="cred-info">
+            <span class="cred-category">Military</span>
+            <div>
+              <h3 class="cred-title">Combat Marksmanship Coach</h3>
+              <div class="cred-issuer">United States Marine Corps</div>
+            </div>
+          </div>
+          <div class="cred-meta">2024</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="section section-bordered contact-section" id="contact">
+      <div class="section-label">
+        <span class="line"></span>
+        <span class="num">V</span>
+        <span>Contact</span>
+        <span class="line"></span>
+      </div>
+      <h2 class="contact-heading metallic">Let's build<br />something worth keeping.</h2>
+      <p class="contact-sub">Need a website built? Hiring? Want to collaborate? Reach out direct.</p>
+      <div class="contact-list">
+        <a href="mailto:Thancobe@gmail.com" class="contact-link">
+          <span class="contact-label">Email</span>
+          <span class="contact-value">Thancobe@gmail.com</span>
+        </a>
+        <a href="https://www.linkedin.com/in/thomas-cobos-bernal/" target="_blank" rel="noopener noreferrer" class="contact-link">
+          <span class="contact-label">LinkedIn</span>
+          <span class="contact-value">thomas-cobos-bernal</span>
+        </a>
+        <a href="https://github.com/ThomasCobosBernalDev" target="_blank" rel="noopener noreferrer" class="contact-link">
+          <span class="contact-label">GitHub</span>
+          <span class="contact-value">ThomasCobosBernalDev</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <span class="footer-text">© 2026 · Thomas Cobos Bernal · Houston, Texas</span>
+    </footer>
+  </div>
+
+  <script>
+    // Nav scroll
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', function() {
+      if (window.scrollY > 20) nav.classList.add('scrolled');
+      else nav.classList.remove('scrolled');
+    }, { passive: true });
+
+    // Theme toggle
+    const html = document.documentElement;
+    const themeToggle = document.getElementById('themeToggle');
+    let theme = 'dark';
+    try {
+      const saved = localStorage.getItem('theme');
+      if (saved) theme = saved;
+    } catch(e) {}
+    html.setAttribute('data-theme', theme);
+
+    themeToggle.addEventListener('click', function() {
+      theme = theme === 'dark' ? 'light' : 'dark';
+      html.setAttribute('data-theme', theme);
+      try { localStorage.setItem('theme', theme); } catch(e) {}
+      // update meta theme-color for mobile browser chrome
+      const metaTheme = document.querySelector('meta[name="theme-color"]');
+      if (metaTheme) metaTheme.setAttribute('content', theme === 'dark' ? '#1E1B17' : '#F0E9D9');
+    });
+
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const mobileMenuClose = document.getElementById('mobileMenuClose');
+    const mobileLinks = document.querySelectorAll('.mobile-nav-item');
+
+    function openMenu() {
+      mobileMenu.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeMenu() {
+      mobileMenu.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    hamburger.addEventListener('click', openMenu);
+    mobileMenuClose.addEventListener('click', closeMenu);
+    mobileLinks.forEach(function(link) {
+      link.addEventListener('click', closeMenu);
+    });
+  </script>
+</body>
+</html>
